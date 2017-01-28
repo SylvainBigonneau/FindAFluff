@@ -20,6 +20,7 @@ defmodule FindAFluff.PetView do
       img_url: pet.img_url,
       neutered: pet.neutered,
       tattoo: pet.tattoo,
-      link: pet.link}
+      link: pet.link,
+      race_details: pet.race_details}
   end
 end

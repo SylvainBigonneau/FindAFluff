@@ -1,19 +1,24 @@
 <template>
-    <div>
-        <h5>Pets</h5>
-        <ul class="collection">
-            <li class="collection-item" v-for="pet in pets">
-                <router-link :to="{ name: 'viewPet', params: { id: pet.id }}">{{ pet.name }}</router-link>
-            </li>
-        </ul>
+    <div class="row">
+        <div class="col s12 m6 l3" v-for="pet in pets">
+            <PetCard v-bind:pet="pet" />
+        </div>
+        <div v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="10">
+            ...
+        </div>
     </div>
 </template>
-
 <script>
+    import PetCard from '../ui/pet-card.vue'
+
     export default {
+        components: {
+            PetCard
+        },
         data() {
             return {
-                pets: []
+                pets: [],
+                fullPets: []
             }
         },
         created() {
@@ -29,8 +34,13 @@
         methods: {
             fetchData() {
                 this.resource.get().then((response) => {
-                    this.pets = response.body.data;
+                    this.fullPets = response.body.data;
+                    this.pets = this.fullPets.slice(0, 12);
                 });
+            },
+            loadMore: function () {
+                let start = this.pets.length;
+                this.pets = this.pets.concat(this.fullPets.slice(start, start + 12));
             }
         }
     }

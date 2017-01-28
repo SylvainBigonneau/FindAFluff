@@ -23,6 +23,7 @@ import "phoenix_html"
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import VueResource from 'vue-resource'
+import infiniteScroll from 'vue-infinite-scroll'
 
 import App from "../components/app.vue"
 import Home from "../components/pages/home.vue"
@@ -30,6 +31,7 @@ import View from "../components/pages/view.vue"
 
 Vue.use(VueRouter)
 Vue.use(VueResource)
+Vue.use(infiniteScroll)
 
 Vue.http.options.root = '/api'
 

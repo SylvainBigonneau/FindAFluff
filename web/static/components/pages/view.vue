@@ -1,7 +1,16 @@
 <template>
-    <h5>{{ pet.name }}</h5>
+    <div>
+        <h5>{{ pet.name }}</h5>
+        <div class="row">
+            <div class="col">
+                <img class="responsive-img" v-bind:src="pet.img_url">
+            </div>
+            <div class="col">
+                <p class="bold">{{ pet.gender === 'M' ? 'Male' : 'Femelle' }}</p>
+            </div>
+        </div>
+    </div>
 </template>
-
 <script>
     import Vue from 'vue'
 

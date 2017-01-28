@@ -22,7 +22,7 @@ defmodule FindAFluff.Pet do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:name, :gender, :birthdate, :img_url, :neutered, :tattoo, :link])
-    |> validate_required([:name, :gender, :birthdate, :img_url, :neutered, :tattoo, :link])
+    |> cast(params, [:name, :gender, :birthdate, :img_url, :neutered, :tattoo, :link, :race_details])
+    |> validate_required([:name, :gender, :birthdate, :img_url, :neutered, :tattoo, :link, :race_details])
   end
 end
