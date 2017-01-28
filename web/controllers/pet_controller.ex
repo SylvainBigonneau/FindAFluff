@@ -29,6 +29,10 @@ defmodule FindAFluff.PetController do
 
   def show(conn, %{"id" => id}) do
     pet = Repo.get!(Pet, id)
+    |> Repo.preload(:race)
+    |> Repo.preload(:shelter)
+    |> Repo.preload(:species)
+
     render(conn, "show.json", pet: pet)
   end
 

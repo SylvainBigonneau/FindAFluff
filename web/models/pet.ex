@@ -9,6 +9,7 @@ defmodule FindAFluff.Pet do
     field :neutered, :boolean, default: false
     field :tattoo, :string, default: false
     field :link, :string
+    field :race_details, :string
     belongs_to :species, FindAFluff.Species
     belongs_to :shelter, FindAFluff.Shelter
     belongs_to :race, FindAFluff.Race
