@@ -1,6 +1,6 @@
 <template>
     <div class="navbar-fixed">
-        <nav class="light-blue">
+        <nav class="purple darken-4">
             <div class="nav-wrapper container">
                 <a href="/" class="brand-logo">
           Find a Fluff

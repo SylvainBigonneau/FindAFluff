@@ -1,7 +1,7 @@
 defmodule FindAFluff.Shelter do
   use FindAFluff.Web, :model
 
-  @derive {Poison.Encoder, only: [:name]}
+  @derive {Poison.Encoder, only: [:name, :region]}
   schema "shelters" do
     field :name, :string
     belongs_to :region, FindAFluff.Region

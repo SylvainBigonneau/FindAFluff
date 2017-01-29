@@ -1,18 +1,24 @@
 <template>
-    <div class="card medium hoverable">
-        <div class="card-image valign-wrapper">
-            <img class="valign" v-bind:src="pet.img_url">
+    <router-link :to="{ name: 'viewPet', params: { id: pet.id }}" class="pet-card">
+        <div class="card medium hoverable">
+            <div class="card-image valign-wrapper">
+                <img class="valign" v-bind:src="pet.img_url || 'http://placehold.it/450x320/000000/ffffff?text=Photo+introuvable'">
+            </div>
+            <div class="card-content">
+                <span class="card-title truncate grey-text text-darken-4">{{ pet.name }}</span>
+                <div class="chip">
+                    {{ pet.species.name }}
+                </div>
+                <div class="chip">
+                    {{ pet.age || "Moins d'1" }} an{{ pet.age > 1 ? 's' : ''}}
+                </div>
+                <div class="chip">{{ pet.gender === 'M' ? 'Male' : 'Femelle' }}</div>
+                <p class="bold">{{ pet.race_details }}</p>
+                <p><span class="bold">Refuge :</span> {{ pet.shelter.name }} ({{ pet.shelter.region.name }})</p>
+            </div>
         </div>
-        <div class="card-content">
-            <router-link :to="{ name: 'viewPet', params: { id: pet.id }}" class="card-title grey-text text-darken-4">{{ pet.name }}</router-link>
-            <p class="bold">{{ pet.species.name }}</p>
-            <p class="bold">{{ pet.age || "Moins d'1" }} an{{ pet.age > 1 ? 's' : ''}}</p>
-            <p class="bold">{{ pet.gender === 'M' ? 'Male' : 'Femelle' }}</p>
-            <p class="bold">{{ pet.race_details }}</p>
-        </div>
-    </div>
+    </router-link>
 </template>
-
 <script>
     export default {
         props: ['pet'],
@@ -21,12 +27,18 @@
         }
     }
 </script>
-
 <style>
-.bold {
-    font-weight: bold;
-}
-.card-title {
-    text-transform: capitalize;
-}
+    .bold {
+        font-weight: bold;
+    }
+    
+    .pet-card,
+    .pet-card:hover {
+        text-decoration: none;
+        color: rgb(51, 51, 51);
+    }
+    
+    .card-title {
+        text-transform: capitalize;
+    }
 </style>

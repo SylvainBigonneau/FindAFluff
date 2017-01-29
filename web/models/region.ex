@@ -1,6 +1,7 @@
 defmodule FindAFluff.Region do
   use FindAFluff.Web, :model
 
+  @derive {Poison.Encoder, only: [:name]}
   schema "regions" do
     field :name, :string
 

@@ -24,6 +24,7 @@ defmodule FindAFluff.Router do
 
     get "/pets", PetController, :index
     get "/pets/:id", PetController, :show
+    get "/regions", RegionController, :index
   end
 
 

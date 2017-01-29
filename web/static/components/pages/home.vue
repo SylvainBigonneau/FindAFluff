@@ -1,6 +1,6 @@
 <template>
     <div class="row">
-        <div class="col s12 m6 l3" v-for="pet in pets">
+        <div class="col s12 m6 l4" v-for="pet in pets">
             <PetCard v-bind:pet="pet" />
         </div>
         <div v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="10">
