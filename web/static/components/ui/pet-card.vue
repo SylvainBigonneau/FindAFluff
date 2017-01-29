@@ -7,14 +7,14 @@
             <div class="card-content">
                 <span class="card-title truncate grey-text text-darken-4">{{ pet.name }}</span>
                 <div class="chip">
-                    {{ pet.species.name }}
+                    {{ pet.species && pet.species.name }}
                 </div>
                 <div class="chip">
                     {{ pet.age || "Moins d'1" }} an{{ pet.age > 1 ? 's' : ''}}
                 </div>
                 <div class="chip">{{ pet.gender === 'M' ? 'Male' : 'Femelle' }}</div>
                 <p class="bold">{{ pet.race_details }}</p>
-                <p><span class="bold">Refuge :</span> {{ pet.shelter.name }} ({{ pet.shelter.region.name }})</p>
+                <p><span class="bold">Refuge :</span> {{ pet.shelter && pet.shelter.name }} ({{ pet.shelter && pet.shelter.region && pet.shelter.region.name }})</p>
             </div>
         </div>
     </router-link>

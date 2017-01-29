@@ -5,6 +5,7 @@ defmodule FindAFluff.RegionController do
 
   def index(conn, _params) do
     regions = Repo.all(Region)
+    |> Repo.preload(:shelters)
     render(conn, "index.json", regions: regions)
   end
 

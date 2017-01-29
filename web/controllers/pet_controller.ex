@@ -7,7 +7,15 @@ defmodule FindAFluff.PetController do
     pets = Repo.all(Pet)
     |> Repo.preload(:race)
     |> Repo.preload(shelter: :region)
-    |> Repo.preload(:species)
+    |> Enum.map(fn(pet) ->
+        Map.update(pet, :shelter, nil, fn(shelter) ->
+          Map.update(shelter || %{}, :region, nil, &(Map.delete(&1 || %{}, :shelters)))
+        end)
+      end)
+    |> Repo.preload(species: :races)
+    |> Enum.map(fn(pet) ->
+        Map.update(pet, :species, nil, &(Map.delete(&1 || %{}, :races)))
+      end)
     
     render(conn, "index.json", pets: pets)
   end
@@ -16,7 +24,11 @@ defmodule FindAFluff.PetController do
     pet = Repo.get!(Pet, id)
     |> Repo.preload(:race)
     |> Repo.preload(shelter: :region)
+    |> Map.update(:shelter, nil, fn(shelter) ->
+         Map.update(shelter || %{}, :region, nil, &(Map.delete(&1 || %{}, :shelters)))
+       end)
     |> Repo.preload(:species)
+    |> Map.update(:species, nil, &(Map.delete(&1 || %{}, :races)))
 
     render(conn, "show.json", pet: pet)
   end

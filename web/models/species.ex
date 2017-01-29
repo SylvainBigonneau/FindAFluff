@@ -1,10 +1,10 @@
 defmodule FindAFluff.Species do
   use FindAFluff.Web, :model
 
-  @derive {Poison.Encoder, only: [:name]}
+  @derive {Poison.Encoder, only: [:name, :races]}
   schema "species" do
     field :name, :string
-
+    has_many :races, FindAFluff.Race
     timestamps()
   end
 
