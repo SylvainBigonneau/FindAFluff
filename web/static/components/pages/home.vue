@@ -1,6 +1,6 @@
 <template>
     <div class="row">
-        <h5>Pets ({{ pets.length }})</h5>
+        <h5>Pets ({{ count }})</h5>
         <div class="col s12 m6 l4" v-for="pet in pets">
             <PetCard v-bind:pet="pet" />
         </div>
@@ -19,7 +19,8 @@
         props: ['species', 'region', 'race'],
         data() {
             return {
-                pets: []
+                pets: [],
+                count: 0
             }
         },
         created() {
@@ -38,12 +39,14 @@
         methods: {
             fetchData() {
                 this.resource.get({offset: 0, race: this.race || undefined, species: this.species || undefined, region: this.region || undefined}).then((response) => {
-                    this.pets = response.body.data;
+                    this.pets = response.body.pets;
+                    this.count = response.body.count;
                 });
             },
             loadMore() {
                 this.resource.get({offset: this.pets.length, race: this.race || undefined, species: this.species || undefined, region: this.region || undefined}).then((response) => {
-                    this.pets = this.pets.concat(response.body.data);
+                    this.pets = this.pets.concat(response.body.pets);
+                    this.count = response.body.count;
                 });
             }
         }

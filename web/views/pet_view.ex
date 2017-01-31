@@ -1,8 +1,8 @@
 defmodule FindAFluff.PetView do
   use FindAFluff.Web, :view
 
-  def render("index.json", %{pets: pets}) do
-    %{data: render_many(pets, FindAFluff.PetView, "pet.json")}
+  def render("index.json", %{pets: pets, count: count}) do
+    %{pets: render_many(pets, FindAFluff.PetView, "pet.json"), count: count}
   end
 
   def render("show.json", %{pet: pet}) do

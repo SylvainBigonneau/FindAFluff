@@ -8,6 +8,6 @@ defmodule FindAFluff.SpeciesView do
   def render("species.json", %{species: species}) do
     %{id: species.id,
       name: species.name,
-      races: species.races}
+      pet_count: species.pet_count}
   end
 end

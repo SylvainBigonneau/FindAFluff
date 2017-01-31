@@ -5,6 +5,7 @@ defmodule FindAFluff.Race do
   schema "races" do
     field :name, :string
     belongs_to :species, FindAFluff.Species
+    has_many :pets, FindAFluff.Pet
 
     timestamps()
   end

@@ -4,6 +4,7 @@ defmodule FindAFluff.Shelter do
   @derive {Poison.Encoder, only: [:name, :region]}
   schema "shelters" do
     field :name, :string
+    has_many :pets, FindAFluff.Pet
     belongs_to :region, FindAFluff.Region
 
     timestamps()

@@ -7,79 +7,81 @@
         </li>
         <li class="row">
             <div class="input-field col s12">
-                <select v-model.lazy="regionVal" class="browser-default" v-on:change="onRegionChange">
-            <option :value="null">Toutes Régions</option>
-            <option v-for="reg in regionsList" :value="reg.id">{{ reg.name }}</option>
+                <select v-model.lazy="filters.region" class="browser-default" v-on:change="onRegionChange">
+            <option :value="undefined">Toutes Régions</option>
+            <option v-for="reg in regionsList" :value="reg.id" v-if="reg.pet_count">{{ reg.name }} ({{ reg.pet_count }})</option>
           </select>
             </div>
         </li>
         <li class="row">
             <div class="input-field col s12">
-                <select v-model.lazy="speciesVal" class="browser-default" v-on:change="onSpeciesChange">
-            <option :value="null">Toutes Espèces</option>
-            <option v-for="spec in speciesList" :value="spec.id">{{ spec.name }}</option>
+                <select v-model.lazy="filters.species" class="browser-default" v-on:change="onSpeciesChange">
+            <option :value="undefined">Toutes Espèces</option>
+            <option v-for="spec in speciesList" :value="spec.id">{{ spec.name }} ({{ spec.pet_count }})</option>
           </select>
             </div>
         </li>
         <li class="row">
             <div class="input-field col s12">
-                <select v-model.lazy="raceVal" class="browser-default" v-on:change="onRaceChange">
-            <option :value="null">Toutes Races</option>
-            <option v-for="race in racesList" :value="race.id">{{ race.name }}</option>
+                <select v-model.lazy="filters.race" class="browser-default" v-on:change="onRaceChange" :disabled="filters.species ? false : true">
+            <option :value="undefined">Toutes Races</option>
+            <option v-for="race in racesList" :value="race.id">{{ race.name }} ({{ race.pet_count }})</option>
           </select>
             </div>
         </li>
     </ul>
 </template>
 <script>
+    let alphabetic = (a, b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase());
+
     export default {
         props: ['updateSpecies', 'updateRegion', 'updateRace'],
         data() {
             return {
-                speciesVal: null,
+                filters: {
+                    species: undefined,
+                    region: undefined,
+                    race: undefined
+                },
                 speciesList: [],
-                regionVal: null,
+                racesList: [],
                 regionsList: [],
-                raceVal: null
             }
         },
         created() {
-            let resourceSpecies = this.$resource('species');
+            this.resourceSpecies = this.$resource('species');
+            this.resourceRaces = this.$resource('races');
+            this.resourceRegions = this.$resource('regions');
 
-            resourceSpecies.get().then((resp) => {
-                this.speciesList = resp.body.data;
-            })
-            let resourceRegions = this.$resource('regions');
-
-            resourceRegions.get().then((resp) => {
-                this.regionsList = resp.body.data;
-            })
-        },
-        computed: {
-            racesList() {
-                if (this.speciesVal) {
-                    return this.speciesList.find((spec) => spec.id === this.speciesVal).races.sort((a, b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()));
-                }
-                return [];
-            }
-        },
-        updated() {
-            $('select').material_select();
-        },
-        mounted() {
-            $(document).ready(() => {
-                $('select').material_select();
-            });
+            this.fetchData();
         },
         methods: {
+            fetchData() {
+                this.resourceSpecies.get(this.filters).then((resp) => {
+                    this.speciesList = resp.body.data.sort(alphabetic);
+                })
+
+                this.resourceRegions.get(this.filters).then((resp) => {
+                    this.regionsList = resp.body.data.sort(alphabetic);
+                })
+
+                this.resourceRaces.get(this.filters).then((resp) => {
+                    this.racesList = resp.body.data.sort(alphabetic);
+                })
+            },
             onSpeciesChange() {
-                this.updateSpecies(this.speciesVal);
+                this.filters.race = undefined;
+                this.updateSpecies(this.filters.species);
+                this.updateRace(undefined);
+                this.fetchData();
             },
             onRegionChange() {
-                this.updateRegion(this.regionVal);
+                this.updateRegion(this.filters.region);
+                this.fetchData();
             },
             onRaceChange() {
-                this.updateRace(this.raceVal);
+                this.updateRace(this.filters.race);
+                this.fetchData();
             }
         }
     }

@@ -46,5 +46,7 @@
     }
     .pet-card .card.medium .card-image {
         max-height: 40%!important;
+        height: 40%!important;
+        background: #000;
     }
 </style>

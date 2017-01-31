@@ -2,10 +2,6 @@ defmodule FindAFluff.PetController do
   use FindAFluff.Web, :controller
 
   alias FindAFluff.Pet
-  alias FindAFluff.Species
-  alias FindAFluff.Shelter
-  alias FindAFluff.Region
-  alias FindAFluff.Race
 
   def index(conn, params) do
     offset_value = Dict.get(params, "offset", 0)
@@ -29,12 +25,19 @@ defmodule FindAFluff.PetController do
           Map.update(shelter || %{}, :region, nil, &(Map.delete(&1 || %{}, :shelters)))
         end)
       end)
-    |> Repo.preload(species: :races)
-    |> Enum.map(fn(pet) ->
-        Map.update(pet, :species, nil, &(Map.delete(&1 || %{}, :races)))
-      end)
-    
-    render(conn, "index.json", pets: pets)
+    |> Repo.preload(:species)
+
+     nbQuery = from p in Pet,
+     join: sp in assoc(p, :species),
+     join: ra in assoc(p, :race),
+     join: sh in assoc(p, :shelter),
+     join: re in assoc(sh, :region),
+     where: like(fragment("to_char(?, 'FM999999999999')", sp.id), ^species)
+            and like(fragment("to_char(?, 'FM999999999999')", ra.id), ^race)
+            and like(fragment("to_char(?, 'FM999999999999')", re.id), ^region)
+     petNb = Repo.aggregate(nbQuery, :count, :id)
+
+    render(conn, "index.json", pets: pets, count: petNb)
   end
 
   def show(conn, %{"id" => id}) do

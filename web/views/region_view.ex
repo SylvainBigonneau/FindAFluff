@@ -8,6 +8,6 @@ defmodule FindAFluff.RegionView do
   def render("region.json", %{region: region}) do
     %{id: region.id,
       name: region.name,
-      shelters: region.shelters}
+      pet_count: region.pet_count}
   end
 end
