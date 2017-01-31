@@ -1,12 +1,10 @@
 <template>
     <div class="row">
-        <h5>Pets ({{ count }})</h5>
+        <h5>Animaux ({{ count }})</h5>
         <div class="col s12 m6 l4" v-for="pet in pets">
             <PetCard v-bind:pet="pet" />
         </div>
-        <div v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="10">
-            ...
-        </div>
+        <div class="white-text" v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="10">.</div>
     </div>
 </template>
 <script>
@@ -31,7 +29,6 @@
         },
         watch: {
             // call again the method if the route changes
-            '$route': 'fetchData',
             'species': 'fetchData',
             'region': 'fetchData',
             'race': 'fetchData'

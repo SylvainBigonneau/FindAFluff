@@ -26,6 +26,7 @@ defmodule FindAFluff.PetController do
         end)
       end)
     |> Repo.preload(:species)
+    
 
      nbQuery = from p in Pet,
      join: sp in assoc(p, :species),

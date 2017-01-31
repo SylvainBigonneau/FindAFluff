@@ -3,9 +3,9 @@
         <nav class="purple darken-4">
             <div class="nav-wrapper container">
                 <a href="#" data-activates="slide-out" class="button-collapse top-nav waves-effect waves-light circle hide-on-large-only"><i class="material-icons">menu</i></a>
-                <router-link :to="{ name: 'home'}" class="brand-logo">
-                    Find a Fluff
-                </router-link>
+                <a href="/" class="brand-logo">
+                    Chien ou Chat
+                </a>
             </div>
         </nav>
     </div>

@@ -23,7 +23,6 @@ defmodule FindAFluff.Router do
     pipe_through :api # Use the default browser stack
 
     get "/pets", PetController, :index
-    get "/pets/:id", PetController, :show
     get "/regions", RegionController, :index
     get "/species", SpeciesController, :index
     get "/races", RaceController, :index

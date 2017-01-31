@@ -1,9 +1,9 @@
 <template>
     <ul id="slide-out" class="side-nav fixed">
         <li class="logo">
-            <router-link :to="{ name: 'home'}" id="logo-container" class="brand-logo">
-                <object id="front-page-logo" type="image/svg+xml" data="http://materializecss.com/res/materialize.svg">Your browser does not support SVG</object>
-            </router-link>
+            <a href="/" id="logo-container" class="brand-logo">
+                <object id="front-page-logo" type="image/svg+xml" data="images/pet-friendly.svg">Your browser does not support SVG</object>
+            </a>
         </li>
         <li class="row">
             <div class="input-field col s12">
@@ -90,7 +90,6 @@
     ul.side-nav.fixed li.logo {
         text-align: center;
         margin-top: 32px;
-        margin-bottom: 80px;
     }
     
     ul.side-nav.fixed li {
@@ -109,8 +108,8 @@
     }
     
     #logo-container {
-        height: 57px;
-        margin-bottom: 32px;
+        height: 70px;
+        margin-bottom: 19px;
     }
     
     #front-page-logo {

@@ -1,6 +1,6 @@
 <template>
-    <router-link :to="{ name: 'viewPet', params: { id: pet.id }}" :title="pet.name" class="pet-card">
-        <div class="card medium hoverable">
+    <a :title="pet.name" class="pet-card">
+        <div class="card medium hoverable" v-on:click="triggerModal">
             <div class="card-image valign-wrapper">
                 <img class="valign" v-bind:src="pet.img_url || 'http://placehold.it/450x320/000000/ffffff?text=Photo+introuvable'">
             </div>
@@ -14,16 +14,36 @@
                 </div>
                 <div class="chip">{{ pet.gender === 'M' ? 'Male' : 'Femelle' }}</div>
                 <p class="bold">{{ pet.race_details }}</p>
-                <p><span class="bold">Refuge :</span> {{ pet.shelter && pet.shelter.name }} ({{ pet.shelter && pet.shelter.region && pet.shelter.region.name }})</p>
+                <p><span class="bold">Refuge :</span> {{ pet.shelter && pet.shelter.name }} ({{ pet.shelter && pet.shelter.region
+                    && pet.shelter.region.name }})</p>
             </div>
         </div>
-    </router-link>
+        <div :id="'modal' + pet.id" class="modal  modal-fixed-footer">
+            <PetModal :pet="pet" />
+            <div class="modal-footer">
+                <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Fermer</a>
+            </div>
+        </div>
+    </a>
 </template>
 <script>
+    import PetModal from './pet-modal.vue'
+
     export default {
+        components: {
+            PetModal
+        },
         props: ['pet'],
         created() {
             this.pet.age = ~~((Date.now() - new Date(this.pet.birthdate)) / (31557600000));
+        },
+        mounted() {
+            $(`#modal${this.pet.id}`).modal();
+        },
+        methods: {
+            triggerModal() {
+                $(`#modal${this.pet.id}`).modal('open');
+            }
         }
     }
 </script>
@@ -36,14 +56,17 @@
     .pet-card:hover {
         text-decoration: none;
         color: rgb(51, 51, 51);
+        cursor: pointer;
     }
     
     .card-title {
         text-transform: capitalize;
     }
+    
     .pet-card .card.medium .card-content {
         max-height: 60%!important;
     }
+    
     .pet-card .card.medium .card-image {
         max-height: 40%!important;
         height: 40%!important;
