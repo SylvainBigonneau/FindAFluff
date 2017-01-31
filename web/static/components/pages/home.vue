@@ -1,5 +1,6 @@
 <template>
     <div class="row">
+        <h5>Pets ({{ pets.length }})</h5>
         <div class="col s12 m6 l4" v-for="pet in pets">
             <PetCard v-bind:pet="pet" />
         </div>
@@ -15,10 +16,10 @@
         components: {
             PetCard
         },
+        props: ['species', 'region', 'race'],
         data() {
             return {
-                pets: [],
-                fullPets: []
+                pets: []
             }
         },
         created() {
@@ -29,18 +30,21 @@
         },
         watch: {
             // call again the method if the route changes
-            '$route': 'fetchData'
+            '$route': 'fetchData',
+            'species': 'fetchData',
+            'region': 'fetchData',
+            'race': 'fetchData'
         },
         methods: {
             fetchData() {
-                this.resource.get().then((response) => {
-                    this.fullPets = response.body.data;
-                    this.pets = this.fullPets.slice(0, 12);
+                this.resource.get({offset: 0, race: this.race || undefined, species: this.species || undefined, region: this.region || undefined}).then((response) => {
+                    this.pets = response.body.data;
                 });
             },
-            loadMore: function () {
-                let start = this.pets.length;
-                this.pets = this.pets.concat(this.fullPets.slice(start, start + 12));
+            loadMore() {
+                this.resource.get({offset: this.pets.length, race: this.race || undefined, species: this.species || undefined, region: this.region || undefined}).then((response) => {
+                    this.pets = this.pets.concat(response.body.data);
+                });
             }
         }
     }

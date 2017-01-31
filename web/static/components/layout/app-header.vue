@@ -2,22 +2,20 @@
     <div class="navbar-fixed">
         <nav class="purple darken-4">
             <div class="nav-wrapper container">
-                <a href="/" class="brand-logo">
-          Find a Fluff
-        </a>
-          <div class="right input-field col s12">
-    <select>
-      <option value="" disabled selected>Choose your option</option>
-      <option value="1">Option 1</option>
-      <option value="2">Option 2</option>
-      <option value="3">Option 3</option>
-    </select>
-    <label>Materialize Select</label>
-  </div>
+                <a href="#" data-activates="slide-out" class="button-collapse top-nav waves-effect waves-light circle hide-on-large-only"><i class="material-icons">menu</i></a>
+                <router-link :to="{ name: 'home'}" class="brand-logo">
+                    Find a Fluff
+                </router-link>
             </div>
         </nav>
     </div>
 </template>
 <script>
-    export default {}
+    export default {
+        mounted() {
+            $(document).ready(() => {
+                $('.button-collapse').sideNav();
+            });
+        }
+    }
 </script>

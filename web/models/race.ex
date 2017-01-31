@@ -1,7 +1,7 @@
 defmodule FindAFluff.Race do
   use FindAFluff.Web, :model
 
-  @derive {Poison.Encoder, only: [:name]}
+  @derive {Poison.Encoder, only: [:id, :name]}
   schema "races" do
     field :name, :string
     belongs_to :species, FindAFluff.Species

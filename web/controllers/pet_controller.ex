@@ -2,9 +2,26 @@ defmodule FindAFluff.PetController do
   use FindAFluff.Web, :controller
 
   alias FindAFluff.Pet
+  alias FindAFluff.Species
+  alias FindAFluff.Shelter
+  alias FindAFluff.Region
+  alias FindAFluff.Race
 
-  def index(conn, _params) do
-    pets = Repo.all(Pet)
+  def index(conn, params) do
+    offset_value = Dict.get(params, "offset", 0)
+    species = Dict.get(params, "species", "%")
+    race = Dict.get(params, "race", "%")
+    region = Dict.get(params, "region", "%")
+    query = from p in Pet,
+     join: sp in assoc(p, :species),
+     join: ra in assoc(p, :race),
+     join: sh in assoc(p, :shelter),
+     join: re in assoc(sh, :region),
+     where: like(fragment("to_char(?, 'FM999999999999')", sp.id), ^species)
+            and like(fragment("to_char(?, 'FM999999999999')", ra.id), ^race)
+            and like(fragment("to_char(?, 'FM999999999999')", re.id), ^region),
+     limit: 12, offset: ^offset_value
+    pets = Repo.all(query)
     |> Repo.preload(:race)
     |> Repo.preload(shelter: :region)
     |> Enum.map(fn(pet) ->
