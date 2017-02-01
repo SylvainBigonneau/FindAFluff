@@ -9,8 +9,8 @@
                 <div class="chip">
                     {{ pet.species && pet.species.name }}
                 </div>
-                <div class="chip">
-                    {{ pet.age || "Moins d'1" }} an{{ pet.age > 1 ? 's' : ''}}
+                <div class="chip" v-if="pet.birthdate">
+                    {{ age || "Moins d'1" }} an{{ age > 1 ? 's' : '' }}
                 </div>
                 <div class="chip">{{ pet.gender === 'M' ? 'Male' : 'Femelle' }}</div>
                 <p class="bold">{{ pet.race_details }}</p>
@@ -34,11 +34,14 @@
             PetModal
         },
         props: ['pet'],
-        created() {
-            this.pet.age = ~~((Date.now() - new Date(this.pet.birthdate)) / (31557600000));
-        },
         mounted() {
             $(`#modal${this.pet.id}`).modal();
+        },
+        computed: {
+            age() {
+                let age = Math.floor((new Date() - new Date(this.pet.birthdate)) / 31557600000);
+                return age;
+            }
         },
         methods: {
             triggerModal() {
@@ -64,12 +67,17 @@
     }
     
     .pet-card .card.medium .card-content {
-        max-height: 60%!important;
+        max-height: 57%;
     }
     
     .pet-card .card.medium .card-image {
-        max-height: 40%!important;
-        height: 40%!important;
+        height: 45%;
         background: #000;
+    }
+    
+    .pet-card .chip {
+        height: 25px;
+        line-height: 25px;
+        padding: 0 8px;
     }
 </style>

@@ -7,7 +7,7 @@
         </li>
         <li class="row">
             <div class="input-field col s12">
-                <select v-model.lazy="filters.region" class="browser-default" v-on:change="onRegionChange">
+                <select v-model.lazy="filters.region" class="browser-default" v-on:change="onRegionChange" :disabled="lock">
             <option :value="undefined">Toutes Régions</option>
             <option v-for="reg in regionsList" :value="reg.id" v-if="reg.pet_count">{{ reg.name }} ({{ reg.pet_count }})</option>
           </select>
@@ -15,7 +15,7 @@
         </li>
         <li class="row">
             <div class="input-field col s12">
-                <select v-model.lazy="filters.species" class="browser-default" v-on:change="onSpeciesChange">
+                <select v-model.lazy="filters.species" class="browser-default" v-on:change="onSpeciesChange" :disabled="lock">
             <option :value="undefined">Toutes Espèces</option>
             <option v-for="spec in speciesList" :value="spec.id">{{ spec.name }} ({{ spec.pet_count }})</option>
           </select>
@@ -23,7 +23,7 @@
         </li>
         <li class="row">
             <div class="input-field col s12">
-                <select v-model.lazy="filters.race" class="browser-default" v-on:change="onRaceChange" :disabled="filters.species ? false : true">
+                <select v-model.lazy="filters.race" class="browser-default" v-on:change="onRaceChange" :disabled="lock || !filters.species">
             <option :value="undefined">Toutes Races</option>
             <option v-for="race in racesList" :value="race.id">{{ race.name }} ({{ race.pet_count }})</option>
           </select>
@@ -46,6 +46,7 @@
                 speciesList: [],
                 racesList: [],
                 regionsList: [],
+                lock: false
             }
         },
         created() {
@@ -57,17 +58,24 @@
         },
         methods: {
             fetchData() {
+                this.lock = true;
                 this.resourceSpecies.get(this.filters).then((resp) => {
-                    this.speciesList = resp.body.data.sort(alphabetic);
-                })
+                        this.speciesList = resp.body.data.sort(alphabetic);
+                    })
+                    .finally(() => {
+                        this.resourceRegions.get(this.filters).then((resp) => {
+                                this.regionsList = resp.body.data.sort(alphabetic);
+                            })
+                            .finally(() => {
+                                this.resourceRaces.get(this.filters).then((resp) => {
+                                        this.racesList = resp.body.data.sort(alphabetic);
+                                    })
+                                    .finally(() => {
+                                        this.lock = false;
+                                    })
+                            });
 
-                this.resourceRegions.get(this.filters).then((resp) => {
-                    this.regionsList = resp.body.data.sort(alphabetic);
-                })
-
-                this.resourceRaces.get(this.filters).then((resp) => {
-                    this.racesList = resp.body.data.sort(alphabetic);
-                })
+                    });
             },
             onSpeciesChange() {
                 this.filters.race = undefined;

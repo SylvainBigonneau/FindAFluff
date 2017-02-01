@@ -3,7 +3,7 @@
         <h5>{{ pet.name }}</h5>
         <div class="row">
             <div class="col m6">
-                <img class="responsive-img" v-bind:src="pet.img_url || 'http://placehold.it/320x450/000000/ffffff?text=Photo+introuvable'">
+                <img class="responsive-img" v-bind:src="pet.img_url || 'http://placehold.it/450x350/000000/ffffff?text=Photo+introuvable'">
             </div>
             <div class="col m6">
                 <p><span class="bold">Éspèce :</span> {{ pet.species && pet.species.name }}</p>
