@@ -21,7 +21,7 @@
         <div :id="'modal' + pet.id" class="modal  modal-fixed-footer">
             <PetModal :pet="pet" />
             <div class="modal-footer">
-                <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Fermer</a>
+                <a class="modal-action modal-close waves-effect waves-green btn-flat">Fermer</a>
             </div>
         </div>
     </a>
@@ -79,5 +79,9 @@
         height: 25px;
         line-height: 25px;
         padding: 0 8px;
+    }
+
+    .pet-card a.modal-close {
+        cursor: pointer;
     }
 </style>

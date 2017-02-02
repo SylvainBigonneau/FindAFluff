@@ -8,7 +8,7 @@
             <div class="col m6">
                 <p><span class="bold">Éspèce :</span> {{ pet.species && pet.species.name }}</p>
                 <p><span class="bold">Sexe :</span> {{ pet.gender === 'M' ? 'Male' : 'Femelle' }}</p>
-                <p><span class="bold">Age :</span> {{ pet.age || "Moins d'1" }} an{{ pet.age > 1 ? 's' : ''}}</p>
+                <p v-if="pet.birthdate"><span class="bold">Age :</span> {{ age || "Moins d'1" }} an{{ age > 1 ? 's' : ''}}</p>
                 <p><span class="bold">Race :</span> {{ pet.race_details }}</p>
                 <p><span class="bold">Région :</span> {{ pet.shelter && pet.shelter.region.name }}</p>
                 <p><span class="bold">Refuge :</span> {{ pet.shelter && pet.shelter.name }}</p>
@@ -19,6 +19,12 @@
 </template>
 <script>
     export default {
-        props: ['pet']
+        props: ['pet'],
+        computed: {
+            age() {
+                let age = Math.floor((new Date() - new Date(this.pet.birthdate)) / 31557600000);
+                return age;
+            }
+        }
     }
 </script>
