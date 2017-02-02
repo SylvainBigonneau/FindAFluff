@@ -1,8 +1,8 @@
 <template>
   <div>
     <SideBar :update-species="updateSpecies" :update-region="updateRegion" :update-race="updateRace" />
+    <AppHeader />
     <main>
-      <AppHeader />
       <div class="container">
         <router-view></router-view>
       </div>
