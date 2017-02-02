@@ -16,8 +16,8 @@ import "phoenix_html"
 // https://tc39.github.io/ecma262/#sec-array.prototype.find
 if (!Array.prototype.find) {
   Object.defineProperty(Array.prototype, 'find', {
-    value: function(predicate) {
-     // 1. Let O be ? ToObject(this value).
+    value: function (predicate) {
+      // 1. Let O be ? ToObject(this value).
       if (this == null) {
         throw new TypeError('"this" is null or not defined');
       }
@@ -67,23 +67,41 @@ if (!Array.prototype.find) {
 
 import Vue from 'vue'
 import VueResource from 'vue-resource'
+import VueRouter from 'vue-router'
 import infiniteScroll from 'vue-infinite-scroll'
 
 import App from "../components/app.vue"
 import Home from "../components/pages/home.vue"
 
+Vue.use(VueRouter)
 Vue.use(VueResource)
 Vue.use(infiniteScroll)
 
 Vue.http.options.root = '/api'
+
+const routes = [{
+  path: '/',
+  name: 'home',
+  component: Home,
+  props: (route) => ({
+    species: route.query.species,
+    race: route.query.race,
+    region: route.query.region
+  })
+}]
+
+const router = new VueRouter({
+  routes // short for routes: routes
+})
 
 // Create the main component
 Vue.component('app', App)
 
 // And create the top-level view model:
 new Vue({
-    el: '#app',
-    render(createElement) {
-        return createElement(App, {})
-    }
+  el: '#app',
+  router,
+  render(createElement) {
+    return createElement(App, {})
+  }
 });

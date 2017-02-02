@@ -38,11 +38,6 @@
         props: ['updateSpecies', 'updateRegion', 'updateRace'],
         data() {
             return {
-                filters: {
-                    species: undefined,
-                    region: undefined,
-                    race: undefined
-                },
                 speciesList: [],
                 racesList: [],
                 regionsList: [],
@@ -50,6 +45,7 @@
             }
         },
         created() {
+            this.filters = this.$route.query;
             this.resourceSpecies = this.$resource('species');
             this.resourceRaces = this.$resource('races');
             this.resourceRegions = this.$resource('regions');

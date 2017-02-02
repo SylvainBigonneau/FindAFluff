@@ -29,19 +29,27 @@
         },
         watch: {
             // call again the method if the route changes
-            'species': 'fetchData',
-            'region': 'fetchData',
-            'race': 'fetchData'
+            '$route': 'fetchData'
         },
         methods: {
             fetchData() {
-                this.resource.get({offset: 0, race: this.race || undefined, species: this.species || undefined, region: this.region || undefined}).then((response) => {
+                this.resource.get({
+                    offset: 0,
+                    race: this.race || undefined,
+                    species: this.species || undefined,
+                    region: this.region || undefined
+                }).then((response) => {
                     this.pets = response.body.pets;
                     this.count = response.body.count;
                 });
             },
             loadMore() {
-                this.resource.get({offset: this.pets.length, race: this.race || undefined, species: this.species || undefined, region: this.region || undefined}).then((response) => {
+                this.resource.get({
+                    offset: this.pets.length,
+                    race: this.race || undefined,
+                    species: this.species || undefined,
+                    region: this.region || undefined
+                }).then((response) => {
                     this.pets = this.pets.concat(response.body.pets);
                     this.count = response.body.count;
                 });

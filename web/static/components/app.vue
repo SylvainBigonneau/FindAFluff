@@ -4,7 +4,7 @@
     <main>
       <AppHeader />
       <div class="container">
-        <Home :species="species" :race="race" :region="region" />
+        <router-view></router-view>
       </div>
     </main>
     <footer class="page-footer">
@@ -30,20 +30,28 @@
     },
     data() {
       return {
-        species: null,
-        region: null,
-        race: null
+        filters: {}
       }
     },
     methods: {
       updateSpecies(val) {
-        this.species = val;
+        this.filters.species = val;
+        this.refreshHome();
       },
       updateRace(val) {
-        this.race = val;
+        this.filters.race = val;
+        this.refreshHome();
       },
       updateRegion(val) {
-        this.region = val;
+        this.filters.region = val;
+        this.refreshHome();
+      },
+      refreshHome() {
+        let queryData = Object.assign({}, this.filters);
+        this.$router.push({
+          name: 'home',
+          query: queryData
+        })
       }
     }
   }
