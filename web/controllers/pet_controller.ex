@@ -8,15 +8,23 @@ defmodule FindAFluff.PetController do
     species = Dict.get(params, "species", "%")
     race = Dict.get(params, "race", "%")
     region = Dict.get(params, "region", "%")
+    photo = Dict.get(params, "photo", nil)
     query = from p in Pet,
      join: sh in assoc(p, :shelter),
      join: re in assoc(sh, :region),
      where: like(fragment("coalesce(to_char(?, 'FM999999999999'), '')", p.species_id), ^species)
             and like(fragment("coalesce(to_char(?, 'FM999999999999'), '')", p.race_id), ^race)
-            and like(fragment("coalesce(to_char(?, 'FM999999999999'), '')", re.id), ^region),
-     order_by: [desc: p.img_url],
-     limit: 12, offset: ^offset_value
-    pets = Repo.all(query)
+            and like(fragment("coalesce(to_char(?, 'FM999999999999'), '')", re.id), ^region)
+     if photo == "true" do
+       query = query
+        |> where([p], p.img_url != "")
+     end
+     fullQuery = query
+     |> order_by([p], desc: p.img_url)
+     |> limit(12)
+     |> offset(^offset_value)
+
+    pets = Repo.all(fullQuery)
     |> Repo.preload(:race)
     |> Repo.preload(shelter: :region)
     |> Enum.map(fn(pet) ->
@@ -26,14 +34,7 @@ defmodule FindAFluff.PetController do
       end)
     |> Repo.preload(:species)
     
-
-     nbQuery = from p in Pet,
-     join: sh in assoc(p, :shelter),
-     join: re in assoc(sh, :region),
-     where: like(fragment("coalesce(to_char(?, 'FM999999999999'), '')", p.species_id), ^species)
-            and like(fragment("coalesce(to_char(?, 'FM999999999999'), '')", p.race_id), ^race)
-            and like(fragment("coalesce(to_char(?, 'FM999999999999'), '')", re.id), ^region)
-     petNb = Repo.aggregate(nbQuery, :count, :id)
+     petNb = Repo.aggregate(query, :count, :id)
 
     render(conn, "index.json", pets: pets, count: petNb)
   end

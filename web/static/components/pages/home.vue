@@ -92,7 +92,8 @@
                     offset: 0,
                     race: this.$route.query.race || undefined,
                     species: this.$route.query.species || undefined,
-                    region: this.$route.query.region || undefined
+                    region: this.$route.query.region || undefined,
+                    photo: this.$route.query.photo
                 }).then((response) => {
                     this.pets = response.body.pets;
                     this.count = response.body.count;
@@ -107,7 +108,8 @@
                         offset: this.pets.length,
                         race: this.$route.query.race || undefined,
                         species: this.$route.query.species || undefined,
-                        region: this.$route.query.region || undefined
+                        region: this.$route.query.region || undefined,
+                        photo: this.$route.query.photo
                     }).then((response) => {
                         this.pets = this.pets.concat(response.body.pets);
                         this.count = response.body.count;

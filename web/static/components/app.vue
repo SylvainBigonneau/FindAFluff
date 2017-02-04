@@ -27,9 +27,15 @@
     },
     created() {
       this.filters = this.$route.query;
+      if (this.filters.photo === 'false') {
+        this.filters.photo = false;
+      }
     },
     methods: {
       updateFilters(val) {
+        if (val.photo === 'false') {
+          val.photo = false;
+        }
         this.filters = val;
       }
     }

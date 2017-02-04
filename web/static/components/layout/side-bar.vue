@@ -29,6 +29,12 @@
           </select>
             </div>
         </li>
+        <li class="row">
+            <div class="input-field col">
+                <input v-model="filters.photo" type="checkbox" v-on:change="onFilterChange" id="photo" />
+                <label for="photo">Photo fournie</label>
+            </div>
+        </li>
     </ul>
 </template>
 <script>
@@ -77,8 +83,8 @@
                     });
             },
             onSpeciesChange() {
-               delete this.filters.race;
-               this.onFilterChange();
+                delete this.filters.race;
+                this.onFilterChange();
             },
             onFilterChange() {
                 let saveFilters = Object.assign({}, this.filters);
@@ -90,7 +96,8 @@
                     query: {
                         species: saveFilters.species,
                         region: saveFilters.region,
-                        race: saveFilters.race
+                        race: saveFilters.race,
+                        photo: saveFilters.photo
                     }
                 })
             },
