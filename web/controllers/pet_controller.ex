@@ -14,6 +14,7 @@ defmodule FindAFluff.PetController do
      where: like(fragment("coalesce(to_char(?, 'FM999999999999'), '')", p.species_id), ^species)
             and like(fragment("coalesce(to_char(?, 'FM999999999999'), '')", p.race_id), ^race)
             and like(fragment("coalesce(to_char(?, 'FM999999999999'), '')", re.id), ^region),
+     order_by: [desc: p.img_url],
      limit: 12, offset: ^offset_value
     pets = Repo.all(query)
     |> Repo.preload(:race)

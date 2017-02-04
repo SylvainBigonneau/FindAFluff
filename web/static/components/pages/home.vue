@@ -1,10 +1,60 @@
 <template>
-    <div class="row">
-        <h5>Animaux ({{ count }})</h5>
-        <div class="col s12 m6 l4" v-for="pet in pets">
-            <PetCard v-bind:pet="pet" />
+    <div>
+        <div class="row">
+            <h5>Animaux ({{ count }})</h5>
+            <div class="col s12 m6 l4" v-for="pet in pets">
+                <PetCard v-bind:pet="pet" />
+            </div>
+            <div class="white-text" v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="10">.</div>
         </div>
-        <div class="white-text" v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="10">.</div>
+        <div class="row center-align">
+            <div class="preloader-wrapper" v-bind:class="{ active: preloading }">
+                <div class="spinner-layer spinner-blue">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+                <div class="spinner-layer spinner-red">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+                <div class="spinner-layer spinner-yellow">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+                <div class="spinner-layer spinner-green">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 <script>
@@ -18,7 +68,8 @@
         data() {
             return {
                 pets: [],
-                count: 0
+                count: 0,
+                preloading: false
             }
         },
         created() {
@@ -36,6 +87,7 @@
         },
         methods: {
             fetchData() {
+                this.preloading = true;
                 this.resource.get({
                     offset: 0,
                     race: this.$route.query.race || undefined,
@@ -44,10 +96,13 @@
                 }).then((response) => {
                     this.pets = response.body.pets;
                     this.count = response.body.count;
+                }).finally(() => {
+                    this.preloading = false;
                 });
             },
             loadMore() {
-                if (this.pets.length < this.count) {
+                if (this.pets.length < this.count && !this.preloading) {
+                    this.preloading = true;
                     this.resource.get({
                         offset: this.pets.length,
                         race: this.$route.query.race || undefined,
@@ -56,6 +111,8 @@
                     }).then((response) => {
                         this.pets = this.pets.concat(response.body.pets);
                         this.count = response.body.count;
+                    }).finally(() => {
+                        this.preloading = false;
                     });
                 }
             }
