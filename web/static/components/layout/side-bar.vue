@@ -85,7 +85,7 @@
                 this.$router.push({
                     name: 'home'
                 });
-                this.$router.push({
+                this.$router.replace({
                     name: 'home',
                     query: {
                         species: saveFilters.species,

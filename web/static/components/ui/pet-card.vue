@@ -9,13 +9,10 @@
                 <div class="chip">
                     {{ pet.species && pet.species.name }}
                 </div>
+                <div class="chip">{{ pet.gender === 'M' ? 'Male' : 'Femelle' }}</div>
                 <div class="chip" v-if="pet.birthdate">
                     {{ age || "Moins d'1" }} an{{ age > 1 ? 's' : '' }}
                 </div>
-                <div class="chip">{{ pet.gender === 'M' ? 'Male' : 'Femelle' }}</div>
-                <p class="bold">{{ pet.race_details }}</p>
-                <p><span class="bold">Refuge :</span> {{ pet.shelter && pet.shelter.name }} ({{ pet.shelter && pet.shelter.region
-                    && pet.shelter.region.name }})</p>
             </div>
         </div>
         <div :id="'modal' + pet.id" class="modal  modal-fixed-footer">
@@ -67,11 +64,12 @@
     }
     
     .pet-card .card.medium .card-content {
-        max-height: 57%;
+        max-height: 28%;
     }
     
     .pet-card .card.medium .card-image {
-        height: 45%;
+        height: 72%;
+        max-height: 72%;
         background: #000;
     }
     
