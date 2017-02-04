@@ -1,31 +1,23 @@
 <template>
   <div>
-    <SideBar :update-species="updateSpecies" :update-region="updateRegion" :update-race="updateRace" />
+    <SideBar :filters="filters" />
     <AppHeader />
     <main>
       <div class="container">
-        <router-view></router-view>
+        <router-view :update-filters="updateFilters"></router-view>
       </div>
     </main>
-    <footer class="page-footer">
-      <div class="container">
-        <div class="row">
-          <div class="center-align">Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="http://www.flaticon.com"
-              title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0"
-              target="_blank">CC 3.0 BY</a></div>
-        </div>
-      </div>
-    </footer>
+    <AppFooter />
   </div>
 </template>
 <script>
   import AppHeader from './layout/app-header.vue'
+  import AppFooter from './layout/app-footer.vue'
   import SideBar from './layout/side-bar.vue'
-  import Home from './pages/home.vue'
   export default {
     components: {
       AppHeader,
-      Home,
+      AppFooter,
       SideBar
     },
     data() {
@@ -33,25 +25,12 @@
         filters: {}
       }
     },
+    created() {
+      this.filters = this.$route.query;
+    },
     methods: {
-      updateSpecies(val) {
-        this.filters.species = val;
-        this.refreshHome();
-      },
-      updateRace(val) {
-        this.filters.race = val;
-        this.refreshHome();
-      },
-      updateRegion(val) {
-        this.filters.region = val;
-        this.refreshHome();
-      },
-      refreshHome() {
-        let queryData = Object.assign({}, this.filters);
-        this.$router.push({
-          name: 'home',
-          query: queryData
-        })
+      updateFilters(val) {
+        this.filters = val;
       }
     }
   }

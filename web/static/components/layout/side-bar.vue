@@ -7,7 +7,7 @@
         </li>
         <li class="row">
             <div class="input-field col s12">
-                <select v-model.lazy="filters.region" class="browser-default" v-on:change="onRegionChange" :disabled="lock">
+                <select v-model.lazy="filters.region" class="browser-default" v-on:change="onFilterChange" :disabled="lock">
             <option :value="undefined">Toutes Régions</option>
             <option v-for="reg in regionsList" :value="reg.id" v-if="reg.pet_count">{{ reg.name }} ({{ reg.pet_count }})</option>
           </select>
@@ -23,7 +23,7 @@
         </li>
         <li class="row">
             <div class="input-field col s12">
-                <select v-model.lazy="filters.race" class="browser-default" v-on:change="onRaceChange" :disabled="lock || !filters.species">
+                <select v-model.lazy="filters.race" class="browser-default" v-on:change="onFilterChange" :disabled="lock || !filters.species">
             <option :value="undefined">Toutes Races</option>
             <option v-for="race in racesList" :value="race.id">{{ race.name }} ({{ race.pet_count }})</option>
           </select>
@@ -35,7 +35,7 @@
     let alphabetic = (a, b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase());
 
     export default {
-        props: ['updateSpecies', 'updateRegion', 'updateRace'],
+        props: ['filters'],
         data() {
             return {
                 speciesList: [],
@@ -45,48 +45,55 @@
             }
         },
         created() {
-            this.filters = this.$route.query;
             this.resourceSpecies = this.$resource('species');
             this.resourceRaces = this.$resource('races');
             this.resourceRegions = this.$resource('regions');
-
             this.fetchData();
+        },
+        watch: {
+            filters() {
+                this.fetchData();
+            }
         },
         methods: {
             fetchData() {
                 this.lock = true;
-                this.resourceSpecies.get(this.filters).then((resp) => {
+                return this.resourceSpecies.get(this.filters).then((resp) => {
                         this.speciesList = resp.body.data.sort(alphabetic);
                     })
                     .finally(() => {
-                        this.resourceRegions.get(this.filters).then((resp) => {
+                        return this.resourceRegions.get(this.filters).then((resp) => {
                                 this.regionsList = resp.body.data.sort(alphabetic);
                             })
                             .finally(() => {
-                                this.resourceRaces.get(this.filters).then((resp) => {
+                                return this.resourceRaces.get(this.filters).then((resp) => {
                                         this.racesList = resp.body.data.sort(alphabetic);
                                     })
                                     .finally(() => {
-                                        this.lock = false;
+                                        return this.lock = false;
                                     })
                             });
 
                     });
             },
             onSpeciesChange() {
-                this.filters.race = undefined;
-                this.updateSpecies(this.filters.species);
-                this.updateRace(undefined);
-                this.fetchData();
+               delete this.filters.race;
+               this.onFilterChange();
             },
-            onRegionChange() {
-                this.updateRegion(this.filters.region);
-                this.fetchData();
+            onFilterChange() {
+                let saveFilters = Object.assign({}, this.filters);
+                this.$router.push({
+                    name: 'home'
+                });
+                this.$router.push({
+                    name: 'home',
+                    query: {
+                        species: saveFilters.species,
+                        region: saveFilters.region,
+                        race: saveFilters.race
+                    }
+                })
             },
-            onRaceChange() {
-                this.updateRace(this.filters.race);
-                this.fetchData();
-            }
         }
     }
 </script>

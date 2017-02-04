@@ -82,15 +82,11 @@ Vue.http.options.root = '/api'
 const routes = [{
   path: '/',
   name: 'home',
-  component: Home,
-  props: (route) => ({
-    species: route.query.species,
-    race: route.query.race,
-    region: route.query.region
-  })
+  component: Home
 }]
 
 const router = new VueRouter({
+  history: true,
   routes // short for routes: routes
 })
 

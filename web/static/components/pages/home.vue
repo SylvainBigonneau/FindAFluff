@@ -14,7 +14,7 @@
         components: {
             PetCard
         },
-        props: ['species', 'region', 'race'],
+        props:['updateFilters'],
         data() {
             return {
                 pets: [],
@@ -29,15 +29,18 @@
         },
         watch: {
             // call again the method if the route changes
-            '$route': 'fetchData'
+            $route() {
+                this.updateFilters(this.$route.query);
+                this.fetchData();
+            }
         },
         methods: {
             fetchData() {
                 this.resource.get({
                     offset: 0,
-                    race: this.race || undefined,
-                    species: this.species || undefined,
-                    region: this.region || undefined
+                    race: this.$route.query.race || undefined,
+                    species: this.$route.query.species || undefined,
+                    region: this.$route.query.region || undefined
                 }).then((response) => {
                     this.pets = response.body.pets;
                     this.count = response.body.count;
@@ -46,9 +49,9 @@
             loadMore() {
                 this.resource.get({
                     offset: this.pets.length,
-                    race: this.race || undefined,
-                    species: this.species || undefined,
-                    region: this.region || undefined
+                    race: this.$route.query.race || undefined,
+                    species: this.$route.query.species || undefined,
+                    region: this.$route.query.region || undefined
                 }).then((response) => {
                     this.pets = this.pets.concat(response.body.pets);
                     this.count = response.body.count;
