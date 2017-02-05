@@ -93,7 +93,8 @@
                     race: this.$route.query.race || undefined,
                     species: this.$route.query.species || undefined,
                     region: this.$route.query.region || undefined,
-                    photo: this.$route.query.photo
+                    photo: this.$route.query.photo,
+                    age: this.$route.query.age && this.$route.query.age < 10 ? this.$route.query.age : undefined
                 }).then((response) => {
                     this.pets = response.body.pets;
                     this.count = response.body.count;
@@ -109,7 +110,8 @@
                         race: this.$route.query.race || undefined,
                         species: this.$route.query.species || undefined,
                         region: this.$route.query.region || undefined,
-                        photo: this.$route.query.photo
+                        photo: this.$route.query.photo,
+                        age: this.$route.query.age && this.$route.query.age < 10 ? this.$route.query.age : undefined
                     }).then((response) => {
                         this.pets = this.pets.concat(response.body.pets);
                         this.count = response.body.count;

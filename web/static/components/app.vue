@@ -30,6 +30,9 @@
       if (this.filters.photo === 'false') {
         this.filters.photo = false;
       }
+      if (!this.filters.age) {
+        this.filters.age = 10;
+      }
     },
     methods: {
       updateFilters(val) {

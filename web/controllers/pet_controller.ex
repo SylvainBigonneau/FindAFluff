@@ -9,6 +9,7 @@ defmodule FindAFluff.PetController do
     race = Dict.get(params, "race", "%")
     region = Dict.get(params, "region", "%")
     photo = Dict.get(params, "photo", nil)
+    age = Dict.get(params, "age", nil)
     query = from p in Pet,
      join: sh in assoc(p, :shelter),
      join: re in assoc(sh, :region),
@@ -18,6 +19,11 @@ defmodule FindAFluff.PetController do
      if photo == "true" do
        query = query
         |> where([p], p.img_url != "")
+     end
+     if age do
+       {age, _} = Integer.parse(age)
+       query = query
+        |> where([p], p.birthdate > ago(^age, "year"))
      end
      fullQuery = query
      |> order_by([p], desc: p.img_url)

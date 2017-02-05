@@ -6,31 +6,50 @@
             </a>
         </li>
         <li class="row">
-            <div class="input-field col s12">
-                <select v-model.lazy="filters.region" class="browser-default" v-on:change="onFilterChange" :disabled="lock">
+            <div class="col s12">
+                <label>Région</label>
+                <div class="input-field">
+                    <select v-model.lazy="filters.region" class="browser-default" v-on:change="onFilterChange" :disabled="lock">
             <option :value="undefined">Toutes Régions</option>
             <option v-for="reg in regionsList" :value="reg.id" v-if="reg.pet_count">{{ reg.name }} ({{ reg.pet_count }})</option>
           </select>
+                </div>
             </div>
         </li>
         <li class="row">
-            <div class="input-field col s12">
-                <select v-model.lazy="filters.species" class="browser-default" v-on:change="onSpeciesChange" :disabled="lock">
+            <div class="col s12">
+                <label>Espèce</label>
+                <div class="input-field">
+                    <select v-model.lazy="filters.species" class="browser-default" v-on:change="onSpeciesChange" :disabled="lock">
             <option :value="undefined">Toutes Espèces</option>
             <option v-for="spec in speciesList" :value="spec.id">{{ spec.name }} ({{ spec.pet_count }})</option>
           </select>
+                </div>
             </div>
         </li>
         <li class="row">
-            <div class="input-field col s12">
-                <select v-model.lazy="filters.race" class="browser-default" v-on:change="onFilterChange" :disabled="lock || !filters.species">
+            <div class="col s12">
+                <label>Race</label>
+                <div class="input-field">
+                    <select v-model.lazy="filters.race" class="browser-default" v-on:change="onFilterChange" :disabled="lock || !filters.species">
             <option :value="undefined">Toutes Races</option>
             <option v-for="race in racesList" :value="race.id">{{ race.name }} ({{ race.pet_count }})</option>
           </select>
+                </div>
             </div>
         </li>
         <li class="row">
-            <div class="input-field col">
+            <div class="col s12">
+                <label>Age Max : {{compAge}}</label>
+                <div class="input-field">
+                    <p class="range-field">
+                        <input type="range" v-model.lazy="filters.age" v-on:change="onFilterChange" id="age" min="1" max="10" />
+                    </p>
+                </div>
+            </div>
+        </li>
+        <li class="row">
+            <div class="input-field col s12 photo">
                 <input v-model="filters.photo" type="checkbox" v-on:change="onFilterChange" id="photo" />
                 <label for="photo">Photo fournie</label>
             </div>
@@ -61,18 +80,25 @@
                 this.fetchData();
             }
         },
+        computed: {
+            compAge() {
+                return this.filters.age < 10 ? this.filters.age : '10+';
+            }
+        },
         methods: {
             fetchData() {
                 this.lock = true;
-                return this.resourceSpecies.get(this.filters).then((resp) => {
+                let saveFilters = Object.assign({}, this.filters);
+                saveFilters.age = saveFilters.age < 10 ? saveFilters.age : undefined;
+                return this.resourceSpecies.get(saveFilters).then((resp) => {
                         this.speciesList = resp.body.data.sort(alphabetic);
                     })
                     .finally(() => {
-                        return this.resourceRegions.get(this.filters).then((resp) => {
+                        return this.resourceRegions.get(saveFilters).then((resp) => {
                                 this.regionsList = resp.body.data.sort(alphabetic);
                             })
                             .finally(() => {
-                                return this.resourceRaces.get(this.filters).then((resp) => {
+                                return this.resourceRaces.get(saveFilters).then((resp) => {
                                         this.racesList = resp.body.data.sort(alphabetic);
                                     })
                                     .finally(() => {
@@ -97,7 +123,8 @@
                         species: saveFilters.species,
                         region: saveFilters.region,
                         race: saveFilters.race,
-                        photo: saveFilters.photo
+                        photo: saveFilters.photo,
+                        age: saveFilters.age
                     }
                 })
             },
@@ -143,4 +170,8 @@
     ul.side-nav.fixed li.row {
         line-height: 1.5;
     }
+    ul.side-nav.fixed li.row .photo {
+        margin-top: 0;
+    }
+    
 </style>

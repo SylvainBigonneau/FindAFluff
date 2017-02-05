@@ -8,6 +8,7 @@ defmodule FindAFluff.RegionController do
     species = Dict.get(params, "species", "%")
     race = Dict.get(params, "race", "%")
     photo = Dict.get(params, "photo", nil)
+    age = Dict.get(params, "age", nil)
 
    query = from r in Region,
      join: sh in assoc(r, :shelters),
@@ -16,7 +17,11 @@ defmodule FindAFluff.RegionController do
      join: ra in assoc(p, :race),
      where: like(fragment("to_char(?, 'FM999999999999')", sp.id), ^species)
             and like(fragment("to_char(?, 'FM999999999999')", ra.id), ^race)
-            
+     if age do
+       {age, _} = Integer.parse(age)
+       query = query
+        |> where([r, sh, p], p.birthdate > ago(^age, "year"))
+     end            
     if photo == "true" do
        query = query
         |> where([r, sh, p], p.img_url != "")
