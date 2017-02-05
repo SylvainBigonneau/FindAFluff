@@ -1,9 +1,7 @@
 <template>
     <a :title="pet.name" class="pet-card">
         <div class="card medium hoverable" v-on:click="triggerModal">
-            <div class="card-image valign-wrapper">
-                <img class="valign" v-bind:src="pet.img_url || 'http://placehold.it/450x320/000000/ffffff?text=Photo+introuvable'">
-            </div>
+            <div class="card-image valign-wrapper" v-bind:style="`background-image:url(${pet.img_url || 'http://placehold.it/450x320/000000/ffffff?text=Photo+introuvable'})`"></div>
             <div class="card-content">
                 <span class="card-title truncate grey-text text-darken-4">{{ pet.name }}</span>
                 <div class="chip">
@@ -71,6 +69,13 @@
         height: 72%;
         max-height: 72%;
         background: #000;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: 50% 50%;
     }
     
     .pet-card .chip {
@@ -78,7 +83,7 @@
         line-height: 25px;
         padding: 0 8px;
     }
-
+    
     .pet-card a.modal-close {
         cursor: pointer;
     }
