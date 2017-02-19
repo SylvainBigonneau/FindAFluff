@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="grey lighten-5">
     <SideBar :filters="filters" />
     <AppHeader />
     <main>
