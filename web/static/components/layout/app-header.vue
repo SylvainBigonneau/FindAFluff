@@ -1,6 +1,6 @@
 <template>
     <header class="navbar-fixed">
-        <nav class="purple darken-4">
+        <nav class="purple darken-2">
             <div class="nav-wrapper container">
                 <a href="#" data-activates="slide-out" class="button-collapse top-nav waves-effect waves-light circle hide-on-large-only"><i class="material-icons">menu</i></a>
                 <a href="/" class="brand-logo">
