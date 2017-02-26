@@ -5,6 +5,9 @@
                 <object id="front-page-logo" type="image/svg+xml" data="images/pet-friendly.svg">Your browser does not support SVG</object>
             </a>
         </li>
+        <li>
+            <a href="mailto:contact@bsylva.in"><i class="material-icons left">email</i> Contact</a>
+        </li>
         <li class="row">
             <div class="col s12">
                 <label>Région</label>
@@ -146,10 +149,11 @@
     }
     
     ul.side-nav.fixed li a {
-        font-size: 13px;
-        line-height: 44px;
-        height: 44px;
         padding: 0 30px;
+    }
+
+    ul.side-nav.fixed li a i {
+        margin-right: 10px;
     }
     
     #logo-container {
