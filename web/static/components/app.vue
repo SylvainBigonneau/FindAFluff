@@ -1,5 +1,5 @@
 <template>
-  <div class="grey lighten-5">
+  <div id="layout">
     <SideBar :filters="filters" />
     <AppHeader />
     <main>
@@ -45,12 +45,27 @@
   }
 </script>
 <style>
+  html, body {
+    height: 100%;
+  }
+
+  #layout {
+    position: relative;
+    min-height: 100%;
+  }
+
   header,
   main,
   footer {
     padding-left: 300px;
   }
-  
+
+  footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+  }
+
   footer.page-footer {
     background: none;
   }
