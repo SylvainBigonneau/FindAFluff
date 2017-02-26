@@ -144,10 +144,6 @@
         line-height: 44px;
     }
     
-    ul.side-nav.fixed {
-        overflow: hidden;
-    }
-    
     ul.side-nav.fixed li a {
         padding: 0 30px;
     }
