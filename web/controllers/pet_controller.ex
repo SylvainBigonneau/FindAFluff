@@ -26,7 +26,7 @@ defmodule FindAFluff.PetController do
         |> where([p], p.birthdate > ago(^age, "year"))
      end
      fullQuery = query
-     |> order_by([p], desc: p.img_url)
+     |> order_by([p], desc: p.id, desc: p.img_url)
      |> limit(12)
      |> offset(^offset_value)
 

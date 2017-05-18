@@ -57,6 +57,10 @@
         cursor: pointer;
     }
     
+    .pet-card .card.medium {
+        border-radius: 25px;
+    }
+
     .card-title {
         text-transform: capitalize;
     }
@@ -66,6 +70,7 @@
     }
     
     .pet-card .card.medium .card-image {
+        border-radius: 25px 25px 0 0;
         height: 72%;
         max-height: 72%;
         background: #000;
