@@ -2,8 +2,9 @@
     <header class="navbar-fixed">
         <nav class="purple darken-2">
             <div class="nav-wrapper container">
-                <a href="#" data-activates="slide-out" class="button-collapse top-nav waves-effect waves-light circle hide-on-large-only"><i class="material-icons">menu</i></a>
+                <a href="#" data-activates="slide-out" class="button-collapse top-nav hide-on-large-only"><i class="fa fa-bars fa-2x"></i></a>
                 <a href="/" class="brand-logo">
+                                <img src="images/pet-friendly-white.svg" class="brand-image" />
                     Chien ou Chat
                 </a>
             </div>
@@ -36,4 +37,25 @@
             width: 100%
         }
     }
+
+    .brand-logo {
+        font-family: 'Comfortaa', cursive;
+    }
+
+    .brand-image {
+        height: 50px;
+        margin-bottom: -14px;
+    }
+
+    @media only screen and (max-width: 460px) {
+        .brand-logo {
+           font-size: 20px !important;
+        }        
+
+        .brand-image {
+           height: 36px;
+           margin-bottom: -10px;
+        }        
+    }
+
 </style>

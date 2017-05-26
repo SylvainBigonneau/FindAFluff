@@ -3,11 +3,10 @@
         <div class="card medium hoverable" v-on:click="triggerModal">
             <div class="card-image valign-wrapper" v-bind:style="`background-image:url(${pet.img_url || 'http://placehold.it/450x320/000000/ffffff?text=Photo+introuvable'})`"></div>
             <div class="card-content">
-                <span class="card-title truncate grey-text text-darken-4">{{ pet.name }}</span>
-                <div class="chip">
-                    {{ pet.species && pet.species.name }}
+                <span class="card-title truncate grey-text text-darken-4"><i class="fa" :class="genderClasses"></i> {{ pet.name }}</span>
+                <div class="chip" v-if="pet.race_details">
+                    {{ pet.race_details }}
                 </div>
-                <div class="chip">{{ pet.gender === 'M' ? 'Male' : 'Femelle' }}</div>
                 <div class="chip" v-if="pet.birthdate">
                     {{ age || "Moins d'1" }} an{{ age > 1 ? 's' : '' }}
                 </div>
@@ -36,6 +35,9 @@
             age() {
                 let age = Math.floor((new Date() - new Date(this.pet.birthdate)) / 31557600000);
                 return age;
+            },
+            genderClasses() {
+                return this.pet.gender === 'M' ? 'fa-mars blue-text' : 'fa-venus pink-text';
             }
         },
         methods: {
@@ -58,7 +60,7 @@
     }
     
     .pet-card .card.medium {
-        border-radius: 25px;
+        border-radius: 15px;
     }
 
     .card-title {
@@ -70,7 +72,7 @@
     }
     
     .pet-card .card.medium .card-image {
-        border-radius: 25px 25px 0 0;
+        border-radius: 15px 15px 0 0;
         height: 72%;
         max-height: 72%;
         background: #000;
@@ -87,6 +89,10 @@
         height: 25px;
         line-height: 25px;
         padding: 0 8px;
+        overflow: hidden;
+        max-width: 135px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
     
     .pet-card a.modal-close {

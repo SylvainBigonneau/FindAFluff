@@ -6,7 +6,7 @@
             </a>
         </li>
         <li>
-            <a href="mailto:contact@bsylva.in"><i class="material-icons left">email</i> Contact</a>
+            <a href="mailto:contact@bsylva.in"><i class="fa fa-envelope fa-lg left"></i> Contact</a>
         </li>
         <li class="row">
             <div class="col s12">
