@@ -1,4 +1,4 @@
-defmodule FindAFluff.SpeciesController do
+defmodule FindAFluffWeb.SpeciesController do
   use FindAFluffWeb, :controller
 
   alias FindAFluff.Species
