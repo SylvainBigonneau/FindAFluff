@@ -11,7 +11,7 @@ defmodule FindAFluff do
       # Start the Ecto repository
       supervisor(FindAFluff.Repo, []),
       # Start the endpoint when the application starts
-      supervisor(FindAFluff.Endpoint, []),
+      supervisor(FindAFluffWeb.Endpoint, []),
       # Start your own worker by calling: FindAFluff.Worker.start_link(arg1, arg2, arg3)
       # worker(FindAFluff.Worker, [arg1, arg2, arg3]),
     ]
@@ -25,7 +25,7 @@ defmodule FindAFluff do
   # Tell Phoenix to update the endpoint configuration
   # whenever the application is updated.
   def config_change(changed, _new, removed) do
-    FindAFluff.Endpoint.config_change(changed, removed)
+    FindAFluffWeb.Endpoint.config_change(changed, removed)
     :ok
   end
 end

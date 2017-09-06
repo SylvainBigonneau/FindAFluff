@@ -1,5 +1,5 @@
 defmodule FindAFluff.PetControllerTest do
-  use FindAFluff.ConnCase
+  use FindAFluffWeb.ConnCase
 
   alias FindAFluff.Pet
   @valid_attrs %{birthdate: %{day: 17, month: 4, year: 2010}, gender: "some content", img_url: "some content", link: "some content", name: "some content", neutered: true, tattooed: true}

@@ -1,5 +1,5 @@
 defmodule FindAFluff.PageControllerTest do
-  use FindAFluff.ConnCase
+  use FindAFluffWeb.ConnCase
 
   test "GET /", %{conn: conn} do
     conn = get conn, "/"

@@ -1,4 +1,4 @@
-defmodule FindAFluff.ConnCase do
+defmodule FindAFluffWeb.ConnCase do
   @moduledoc """
   This module defines the test case to be used by
   tests that require setting up a connection.
@@ -25,10 +25,10 @@ defmodule FindAFluff.ConnCase do
       import Ecto.Changeset
       import Ecto.Query
 
-      import FindAFluff.Router.Helpers
+      import FindAFluffWeb.Router.Helpers
 
       # The default endpoint for testing
-      @endpoint FindAFluff.Endpoint
+      @endpoint FindAFluffWeb.Endpoint
     end
   end
 

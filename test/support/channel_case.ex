@@ -1,4 +1,4 @@
-defmodule FindAFluff.ChannelCase do
+defmodule FindAFluffWeb.ChannelCase do
   @moduledoc """
   This module defines the test case to be used by
   channel tests.
@@ -27,7 +27,7 @@ defmodule FindAFluff.ChannelCase do
 
 
       # The default endpoint for testing
-      @endpoint FindAFluff.Endpoint
+      @endpoint FindAFluffWeb.Endpoint
     end
   end
 

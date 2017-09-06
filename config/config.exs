@@ -10,10 +10,10 @@ config :find_a_fluff,
   ecto_repos: [FindAFluff.Repo]
 
 # Configures the endpoint
-config :find_a_fluff, FindAFluff.Endpoint,
+config :find_a_fluff, FindAFluffWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "Ks8bc96OuSg55tm6yJ6iZ8QSO1OJ5jwCDu3Vf+sA2qw/9znNM4AeKHAyTUXm7WYH",
-  render_errors: [view: FindAFluff.ErrorView, accepts: ~w(html json)],
+  render_errors: [view: FindAFluffWeb.ErrorView, accepts: ~w(html json)],
   pubsub: [name: FindAFluff.PubSub,
            adapter: Phoenix.PubSub.PG2]
 

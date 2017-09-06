@@ -1,3 +1,3 @@
 defmodule FindAFluff.PageViewTest do
-  use FindAFluff.ConnCase, async: true
+  use FindAFluffWeb.ConnCase, async: true
 end
