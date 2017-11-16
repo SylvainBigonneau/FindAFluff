@@ -12,50 +12,51 @@
     </header>
 </template>
 <script>
-    export default {
-        mounted() {
-            $(document).ready(() => {
-                $('.button-collapse').sideNav();
-            });
-        }
-    }
+export default {
+  mounted() {
+    $(document).ready(() => {
+      $(".button-collapse").sideNav();
+    });
+  }
+};
 </script>
-<style>
-    .navbar-fixed nav {
-        /* width is 100% minus the fixed left navbar (240px) */
-        width: -moz-calc(100% - 300px);
-        /* Firefox */
-        width: -webkit-calc(100% - 300px);
-        /* Chrome, Safari */
-        width: calc(100% - 300px);
-        /* IE9+ and future browsers */
-    }
-    
-    @media only screen and (max-width: 992px) {
-        /* width is 100% because the fixed left navbar is not displayed */
-        .navbar-fixed nav {
-            width: 100%
-        }
-    }
+<style scoped>
+.navbar-fixed nav {
+  /* width is 100% minus the fixed left navbar (240px) */
+  width: -moz-calc(100% - 300px);
+  /* Firefox */
+  width: -webkit-calc(100% - 300px);
+  /* Chrome, Safari */
+  width: calc(100% - 300px);
+  /* IE9+ and future browsers */
+}
 
-    .brand-logo {
-        font-family: 'Comfortaa', cursive;
-    }
+@media only screen and (max-width: 992px) {
+  /* width is 100% because the fixed left navbar is not displayed */
+  .navbar-fixed nav {
+    width: 100%;
+  }
+}
 
-    .brand-image {
-        height: 50px;
-        margin-bottom: -14px;
-    }
+.brand-logo {
+  font-family: "Comfortaa", cursive;
+}
 
-    @media only screen and (max-width: 460px) {
-        .brand-logo {
-           font-size: 20px !important;
-        }        
+.brand-image {
+  height: 50px;
+  margin-bottom: -14px;
+}
 
-        .brand-image {
-           height: 36px;
-           margin-bottom: -10px;
-        }        
-    }
+@media only screen and (max-width: 460px) {
+  .brand-logo {
+    font-size: 20px !important;
+    width: 200px;
+    left: 55% !important;
+  }
 
+  .brand-image {
+    height: 36px;
+    margin-bottom: -10px;
+  }
+}
 </style>

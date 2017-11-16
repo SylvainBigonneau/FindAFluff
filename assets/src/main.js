@@ -94,6 +94,7 @@ import Vue from 'vue'
 import VueResource from 'vue-resource'
 import VueRouter from 'vue-router'
 import infiniteScroll from 'vue-infinite-scroll'
+import vSelect from 'vue-select'
 
 import App from "./App"
 import Home from "./components/pages/home.vue"
@@ -101,6 +102,7 @@ import Home from "./components/pages/home.vue"
 Vue.use(VueRouter)
 Vue.use(VueResource)
 Vue.use(infiniteScroll)
+Vue.component('v-select', vSelect)
 
 Vue.http.options.root = '/api'
 

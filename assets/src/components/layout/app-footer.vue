@@ -13,3 +13,9 @@
 <script>
     export default {}
 </script>
+
+<style scoped>
+    .page-footer {
+        color: rgba(0, 0, 0, 0.87);
+    }
+</style>
