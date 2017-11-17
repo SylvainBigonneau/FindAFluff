@@ -86,10 +86,10 @@ export default {
       this.fetchData();
     },
     race() {
-        if (this.race) {
-            this.filters.race = this.race.value;
-            this.onFilterChange();
-        }
+      if (this.race) {
+        this.filters.race = this.race.value;
+        this.onFilterChange();
+      }
     }
   },
   computed: {
@@ -117,13 +117,16 @@ export default {
               return this.resourceRaces
                 .get(saveFilters)
                 .then(resp => {
-                  this.racesList = resp.body.data
-                    .sort(alphabetic)
-                    .map(race => ({
-                      label: `${race.name} (${race.pet_count})`,
+                  this.racesList = resp.body.data.sort(alphabetic).map(race => {
+                    let label = `${race.name} (${race.pet_count})`;
+                    if (this.race && this.race.value === race.id)
+                      this.race.label = label;
+                    return {
+                      label,
                       value: race.id
-                    }));
-                    if (!this.filters.race) this.race = null;
+                    };
+                  });
+                  if (!this.filters.race) this.race = null;
                 })
                 .finally(() => {
                   return (this.lock = false);
@@ -205,13 +208,13 @@ ul.side-nav.fixed li.row .photo {
 }
 
 .race input:focus {
-    border-bottom: none !important;
-    -webkit-box-shadow: none !important;
-    box-shadow: none !important;
-    width: 100% !important;
+  border-bottom: none !important;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+  width: 100% !important;
 }
 
 .race input {
-    width: 1px !important;
+  width: 1px !important;
 }
 </style>
