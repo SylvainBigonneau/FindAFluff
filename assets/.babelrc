@@ -1,11 +1,11 @@
 {
   "presets": [
-    "stage-2"
+    "es2015"
   ],
   "comments": false,
   "env": {
     "development": {
-      "presets": ["stage-2"]
+      "presets": ["es2015"]
     }
   }
 }
