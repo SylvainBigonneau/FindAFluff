@@ -1,6 +1,6 @@
 <template>
     <header class="navbar-fixed">
-        <nav class="purple darken-2">
+        <nav>
             <div class="nav-wrapper container">
                 <a href="#" data-activates="slide-out" class="button-collapse top-nav hide-on-large-only"><i class="fa fa-bars fa-2x"></i></a>
                 <a href="/" class="brand-logo">
@@ -21,6 +21,7 @@ export default {
 };
 </script>
 <style scoped>
+
 .navbar-fixed nav {
   /* width is 100% minus the fixed left navbar (240px) */
   width: -moz-calc(100% - 300px);
@@ -29,17 +30,27 @@ export default {
   /* Chrome, Safari */
   width: calc(100% - 300px);
   /* IE9+ and future browsers */
+  background-color: #994d00;
 }
 
-@media only screen and (max-width: 992px) {
+.navbar-fixed nav .brand-logo {
+
+}
+
+@media (max-width: 992px) {
   /* width is 100% because the fixed left navbar is not displayed */
   .navbar-fixed nav {
     width: 100%;
   }
 }
 
+nav .button-collapse i {
+  color: #fff3e0;
+}
+
 .brand-logo {
   font-family: "Comfortaa", cursive;
+  color: #fff3e0;
 }
 
 .brand-image {
@@ -47,7 +58,7 @@ export default {
   margin-bottom: -14px;
 }
 
-@media only screen and (max-width: 460px) {
+@media (max-width: 460px) {
   .brand-logo {
     font-size: 20px !important;
     width: 200px;
@@ -59,4 +70,11 @@ export default {
     margin-bottom: -10px;
   }
 }
+
+@media (min-width: 461px) {
+  .brand-logo {
+    min-width: 282px;
+  }
+}
+
 </style>

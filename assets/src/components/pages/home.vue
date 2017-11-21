@@ -56,8 +56,8 @@
             </div>
         </div>
         <div class="fixed-action-btn" v-show="showScrollTop">
-            <a class="btn-floating btn-large grey lighten-2" @click="scrollToTop">
-                <i class="fa fa-angle-double-up grey-text text-darken-2"></i>
+            <a class="btn-floating btn-large" @click="scrollToTop">
+                <i class="fa fa-angle-double-up"></i>
             </a>
         </div>
     </div>
@@ -141,3 +141,14 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+    .fixed-action-btn a {
+        background-color: #994d00;
+    }
+
+    .fixed-action-btn a i {
+        color: #fff3e0;
+    }
+
+</style>
