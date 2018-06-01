@@ -13,7 +13,7 @@ use Mix.Config
 # which you typically run after static files are built.
 config :find_a_fluff, FindAFluffWeb.Endpoint,
   http: [port: 4001],
-  url: [host: "chien.ou.chat"],
+  url: [host: "www.chien-ou-chat.fr"],
   root: ".",
   cache_static_manifest: "priv/static/cache_manifest.json",
   server: true,

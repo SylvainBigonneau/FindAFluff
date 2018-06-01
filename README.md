@@ -4,12 +4,16 @@ To start your Phoenix app:
 
   * Install dependencies with `mix deps.get`
   * Create and migrate your database with `mix ecto.create && mix ecto.migrate`
-  * Install Node.js dependencies with `npm install`
-  * Start Phoenix endpoint with `mix phoenix.server`
+  * Install Node.js dependencies in the "assets" folder with `npm install` and `webpack -p` (Use webpack v3, v4 might cause errors at this stage)
+  * Start Phoenix endpoint with `mix phx.server`
 
 Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
 Ready to run in production? Please [check our deployment guides](http://www.phoenixframework.org/docs/deployment).
+
+## Deployment
+
+You can use the "chien_ou_chat.service" systemd file and the "launch.sh" script as examples to run the app on your server.
 
 ## Learn more
 
