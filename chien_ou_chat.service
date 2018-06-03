@@ -5,7 +5,7 @@ After=network.target
 [Service]
 WorkingDirectory=/home/kenny/workspace/find_a_fluff/rel/find_a_fluff
 ExecStart=/home/kenny/workspace/find_a_fluff/rel/find_a_fluff/bin/find_a_fluff start
-ExecStop=/home/kenny/workspace/find_a_fluff/rel/find_a_fluff/bin/find_a_fluff ExecStop
+ExecStop=/home/kenny/workspace/find_a_fluff/rel/find_a_fluff/bin/find_a_fluff stop
 User=root
 RemainAfterExit=yes
 
