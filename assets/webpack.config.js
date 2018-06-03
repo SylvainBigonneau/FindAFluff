@@ -92,7 +92,7 @@ module.exports = (env) => {
       }),
       new CopyWebpackPlugin([{
         from: './static',
-        to: path.resolve(__dirname, 'priv/static'),
+        to: path.resolve(__dirname, '../priv/static'),
         ignore: ['.*']
       }]),
       new webpack.optimize.UglifyJsPlugin({
@@ -111,7 +111,7 @@ module.exports = (env) => {
 
       new CopyWebpackPlugin([{
         from: './static',
-        to: path.resolve(__dirname, 'priv/static'),
+        to: path.resolve(__dirname, '../priv/static'),
         ignore: ['.*']
       }])
     ]
